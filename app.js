@@ -6,14 +6,10 @@ let app = express();
 app.set('port', 8081);
 
 
-app.get('/usuarios', function(req,res) {
-    console.log("depurar aqui");
-    res.send('ver usuarios');
-})
+//Rutas/controladores por lógica
+require("./routes/rusuarios.js")(app); // (app, param1, param2, etc.)
+require("./routes/rcanciones.js")(app); // (app, param1, param2, etc.)
 
-app.get('/canciones', function(req,res){
-    res.send('ver caciones');
-});
 
 //lanzar el serviddor
 app.listen(app.get('port'), function() {
