@@ -2,6 +2,9 @@
 let express = require('express');
 let app = express();
 
+let fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
 
 //mongodb://admin:sdi@tiendamusica-shard-00-00.7ya3n.mongodb.net:27017,tiendamusica-shard-00-01.7ya3n.mongodb.net:27017,tiendamusica-shard-00-02.7ya3n.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-e7np4x-shard-0&authSource=admin&retryWrites=true&w=majority
 
