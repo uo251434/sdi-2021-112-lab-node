@@ -9,7 +9,7 @@ module.exports = {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
                 funcionCallback(null);
-            } else {;
+            } else {
                 let collection = db.collection('usuarios');
                 collection.insert(usuario, function(err, result) {
                     if (err) {
@@ -56,6 +56,23 @@ module.exports = {
             }
         });
     },
+    obtenerComentarios : function(criterio,funcionCallback){
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('comentarios');
+                collection.find(criterio).toArray(function(err, canciones) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(canciones);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
     insertarCancion : function(cancion, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
             if (err) {
@@ -63,6 +80,23 @@ module.exports = {
             } else {
                 let collection = db.collection('canciones');
                 collection.insertOne(cancion, function(err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    insertarComentario : function(comentario, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function(err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('comentarios');
+                collection.insertOne(comentario, function(err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {

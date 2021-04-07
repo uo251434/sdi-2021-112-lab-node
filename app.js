@@ -70,11 +70,7 @@ app.use(express.static('public'));
 
 // Variables
 app.set('port', 8081);
-app.set('db', 'mongodb://admin:sdi@tiendamusica-shard-00-00.7ya3n.mongodb.net:27017,' +
-    'tiendamusica-shard-00-01.7ya3n.mongodb.net:27017,' +
-    'tiendamusica-shard-00-02.7ya3n.mongodb.net:27017/' +
-    'myFirstDatabase?ssl=true&replicaSet=atlas-e7np4x-shard-0&authSource=admin&retryWrites=true&w=majority')
-
+app.set('db','mongodb://admin:sdi@tiendamusica-shard-00-00.7ya3n.mongodb.net:27017,tiendamusica-shard-00-01.7ya3n.mongodb.net:27017,tiendamusica-shard-00-02.7ya3n.mongodb.net:27017/myFirstDatabase?ssl=true&replicaSet=atlas-e7np4x-shard-0&authSource=admin&retryWrites=true&w=majority');
 app.set('clave','abcdefg');
 app.set('crypto',crypto);
 
@@ -82,6 +78,8 @@ app.set('crypto',crypto);
 require("./routes/rusuarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 require("./routes/rcanciones.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 require("./routes/rautores.js")(app, swig); // (app, param1, param2, etc.)
+
+require("./routes/rcomentarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 
 
 //lanzar el serviddor
