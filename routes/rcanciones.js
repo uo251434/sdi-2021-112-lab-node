@@ -172,6 +172,18 @@ module.exports = function(app, swig, gestorBD) {
         }
     };
 
+    app.get('/cancion/eliminar/:id', function (req, res) {
+        let criterio = {"_id" : gestorBD.mongo.ObjectID(req.params.id) };
+        gestorBD.eliminarCancion(criterio,function(canciones){
+            if ( canciones == null ){
+                res.send(respuesta);
+            } else {
+                res.redirect("/publicaciones");
+            }
+        });
+    })
+
+
     app.post("/cancion", function(req, res) {
         if ( req.session.usuario == null){
             res.redirect("/tienda");
@@ -203,6 +215,7 @@ module.exports = function(app, swig, gestorBD) {
                                         res.send("Error al subir el audio");
                                     } else {
                                         res.send("Agregada id: "+ id);
+                                        res.redirect("/publicaciones");
                                     }
                                 });
                             }
