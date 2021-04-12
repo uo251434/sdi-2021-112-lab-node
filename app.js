@@ -103,6 +103,10 @@ require("./routes/rautores.js")(app, swig); // (app, param1, param2, etc.)
 
 require("./routes/rcomentarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 
+app.get('/', function (req, res) {
+    res.redirect('/tienda');
+})
+
 
 //lanzar el serviddor
 app.listen(app.get('port'), function() {
