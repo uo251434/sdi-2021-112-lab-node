@@ -2,6 +2,9 @@
 let express = require('express');
 let app = express();
 
+let fs = require('fs');
+let https = require('https');
+
 let expressSession = require('express-session');
 app.use(expressSession({
     secret: 'abcdefg',
@@ -122,7 +125,20 @@ app.get('/', function (req, res) {
 })
 
 
+//manejo de errores
+app.use(function( err, req, res, next){
+    console.log("Error producido: " + err); //mostramos el error en consola
+    if(! res.headersSent) {
+        res.status(400);
+        res.send("recuso no disponible");
+    }
+});
+
+
 //lanzar el serviddor
-app.listen(app.get('port'), function() {
-    console.log('Servidor activo');
-})
+https.createServer({
+    key: fs.readFileSync('certificates/alice.key'),
+    cert: fs.readFileSync('certificates/alice.crt')
+}, app).listen(app.get('port'), function() {
+    console.log("Servidor activo");
+});
