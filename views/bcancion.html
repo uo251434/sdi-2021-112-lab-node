@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block titulo %} Detalles {{ cancion.nombre }} {% endblock %}
+{% block contenido_principal %}
+<div class="row">
+	<div class="media col-xs-10">
+		<div class="media-left media-middle">
+			<img class="media-object" src="/portadas/{{ cancion._id.toString() }}.png" >
+		</div>
+		<div class="media-body">
+			<h2>{{ cancion.nombre }}</h2>
+			<p>{{ cancion.autor }}</p>
+			<p>{{ cancion.genero }}</p>
+			<button type="button" class="btn btn-primary pull-right">{{ cancion.precio }}
+				€</button>
+			<!-- Cambiar el precio por "reproducir" si ya está comprada -->
+		</div>
+	</div>
+</div>
+<div>
+	<form class="form-horizontal" method="post" action="/comentarios/{{ cancion._id.toString() }}" encType="multipart/form-data">
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="comentario">Añadir Comentario:</label>
+			<input type="text" name="comentario"
+				   placeholder="Comentario" required="true">
+			<button type="submit" class="btn btn-primary" > Publicar </button>
+		</div>
+
+	</form>
+</div>
+
+{% for comentario in comentarios %}
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
+	<div style="width: 200px">
+		<h4> Autor: {{comentario.autor}}</h4>
+		<p>{{comentario.texto}}</p>
+	</div>
+</div>
+{% endfor %}
+
+{% endblock %}
