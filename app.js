@@ -73,6 +73,8 @@ routerUsuarioAutor.use(function(req, res, next) {
 app.use("/cancion/modificar",routerUsuarioAutor);
 app.use("/cancion/eliminar",routerUsuarioAutor);
 
+
+
 //routerAudios
 let routerAudios = express.Router();
 routerAudios.use(function(req, res, next) {
@@ -101,6 +103,9 @@ routerAudios.use(function(req, res, next) {
         })
 });
 
+
+
+
 //Aplicar routerAudios
 app.use("/audios/",routerAudios);
 
@@ -117,7 +122,6 @@ app.set('crypto',crypto);
 require("./routes/rusuarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 require("./routes/rcanciones.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 require("./routes/rautores.js")(app, swig); // (app, param1, param2, etc.)
-
 require("./routes/rcomentarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 
 app.get('/', function (req, res) {
