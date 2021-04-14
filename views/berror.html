@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titulo %} Mensaje – uoMusic {% endblock %}
+
+{% block contenido_principal %}
+<h2> Aviso importante:</h2>
+<div class='alert "{{tipoMensaje}} "'>
+    {{mensaje}}
+</div>
+{% endblock %}
+

@@ -21,7 +21,10 @@ module.exports = function(app, swig, gestorBD) {
 
         gestorBD.insertarUsuario(usuario, function(id) {
             if (id == null){
-                res.redirect("/registrarse?mensaje=Error al registrar usuario");
+                let respuesta = swig.renderFile('views/berror.html', {
+                    mensaje: "Error al registrar usuario"
+                });
+                res.send(respuesta);
             } else {
                 res.redirect("/identificarse?mensaje=Nuevo usuario registrado");
             }

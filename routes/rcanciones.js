@@ -171,7 +171,10 @@ module.exports = function(app, swig, gestorBD) {
         }
         canBuySong(req.session.usuario,req.params.id, function(canBuy){
             if(!canBuy){
-                res.send("error, no se puede comprar esta cancion");
+                let respuesta = swig.renderFile('views/berror.html', {
+                    mensaje: "error, no se puede comprar esta cancion, es tuya o ya esta comprada"
+                });
+                res.send(respuesta);
             }
             else{
                 gestorBD.insertarCompra(compra ,function(idCompra){
