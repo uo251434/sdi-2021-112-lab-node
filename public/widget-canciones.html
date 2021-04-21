@@ -12,9 +12,9 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Genero</th>
-            <th>Precio</th>
+            <th onclick="ordenar('nombre')">Nombre</th>
+            <th onclick="ordenar('genero')">Genero</th>
+            <th onclick="ordenar('precio')">Precio</th>
             <th class="col-md-1"></th>
         </tr>
         </thead>
@@ -88,6 +88,40 @@
 
     function widgetAgregar() {
         $( "#contenedor-principal" ).load( "widget-agregar.html");
+    }
+
+    function ordenar(property){
+        $.ajax({
+            url: URLbase + "/cancion",
+            type: "GET",
+            data: { },
+            dataType: 'json',
+            headers: { "token": token },
+            success: function(respuesta) {
+                canciones = respuesta;
+                canciones.sort(dynamicSort("nombre"))
+                actualizarTabla(canciones);
+            },
+            error : function (error){
+                $( "#contenedor-principal" ).load("widget-login.html");
+            }
+        });
+    }
+
+
+    function dynamicSort(property) {
+        var sortOrder = 1;
+        if(property[0] === "-") {
+            sortOrder = -1;
+            property = property.substr(1);
+        }
+        return function (a,b) {
+            /* next line works with strings and numbers,
+             * and you may want to customize it to your needs
+             */
+            var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+            return result * sortOrder;
+        }
     }
 
 </script>
